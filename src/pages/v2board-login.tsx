@@ -4,6 +4,8 @@ import {
   Button,
   CircularProgress,
   Container,
+  IconButton,
+  InputAdornment,
   Paper,
   TextField,
   Typography,
@@ -33,7 +35,6 @@ export default function V2BoardLoginPage() {
     setError('')
     try {
       await V2BoardService.login(email, password)
-      // 获取订阅链接并导入
       const subscribeUrl = await V2BoardService.getSubscribeUrl()
       await importProfile(subscribeUrl, { with_proxy: true })
       navigate('/')
@@ -71,13 +72,15 @@ export default function V2BoardLoginPage() {
             disabled={loading}
             InputProps={{
               endAdornment: (
-                <Button
-                  component="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </Button>
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                    size="small"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
               ),
             }}
           />
