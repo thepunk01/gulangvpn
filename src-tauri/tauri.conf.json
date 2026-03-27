@@ -14,7 +14,7 @@
     "resources": [
       "resources"
     ],
-    "publisher": "Clash Verge Rev",
+    "publisher": "孤狼加速",
     "externalBin": [
       "sidecar/verge-mihomo",
       "sidecar/verge-mihomo-alpha"
@@ -33,7 +33,6 @@
     "removeUnusedCommands": true
   },
   "productName": "孤狼加速",
-  "identifier": "io.github.clash-verge-rev.clash-verge-rev",
   "plugins": {
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQyOEMyRjBCQkVGOUJEREYKUldUZnZmbStDeStNMHU5Mmo1N24xQXZwSVRYbXA2NUpzZE5oVzlqeS9Bc0t6RVV4MmtwVjBZaHgK",
@@ -72,6 +71,5 @@
       },
       "csp": null
     }
-  },
-  "name": "gulangvpn"
+  }
 }
