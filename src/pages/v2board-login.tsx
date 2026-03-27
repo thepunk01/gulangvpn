@@ -71,7 +71,11 @@ export default function V2BoardLoginPage() {
             disabled={loading}
             InputProps={{
               endAdornment: (
-                <Button onClick={() => setShowPassword(!showPassword)} edge="end">
+                <Button
+                  component="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </Button>
               ),
