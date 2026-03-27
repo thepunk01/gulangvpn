@@ -26,6 +26,8 @@ import ProxiesPage from './proxies'
 import RulesPage from './rules'
 import SettingsPage from './settings'
 import UnlockPage from './unlock'
+import V2BoardLoginPage from './v2board-login'
+import V2BoardRegisterPage from './v2board-register'
 
 export const navItems = [
   {
@@ -79,6 +81,14 @@ export const navItems = [
 ]
 
 export const router = createBrowserRouter([
+  {
+    path: '/v2board-login',
+    Component: V2BoardLoginPage,
+  },
+  {
+    path: '/v2board-register',
+    Component: V2BoardRegisterPage,
+  },
   {
     path: '/',
     Component: Layout,

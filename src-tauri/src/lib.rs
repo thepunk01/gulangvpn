@@ -41,8 +41,10 @@ mod app_init {
 
     /// Setup plugins for the Tauri builder
     pub fn setup_plugins(builder: tauri::Builder<tauri::Wry>) -> tauri::Builder<tauri::Wry> {
+        use crate::feat::v2board::V2BoardState;
         #[allow(unused_mut)]
         let mut builder = builder
+            .manage(V2BoardState::default())
             .plugin(tauri_plugin_clash_verge_sysinfo::init())
             .plugin(tauri_plugin_notification::init())
             .plugin(tauri_plugin_updater::Builder::new().build())
@@ -216,6 +218,13 @@ mod app_init {
             cmd::restore_webdav_backup,
             cmd::get_unlock_items,
             cmd::check_media_unlock,
+            cmd::v2board_login,
+            cmd::v2board_register,
+            cmd::v2board_is_logged_in,
+            cmd::v2board_get_token,
+            cmd::v2board_get_user_info,
+            cmd::v2board_get_subscribe_url,
+            cmd::v2board_logout,
         ]
     }
 }

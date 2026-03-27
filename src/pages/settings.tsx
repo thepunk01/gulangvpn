@@ -8,6 +8,7 @@ import SettingClash from '@/components/setting/setting-clash'
 import SettingSystem from '@/components/setting/setting-system'
 import SettingVergeAdvanced from '@/components/setting/setting-verge-advanced'
 import SettingVergeBasic from '@/components/setting/setting-verge-basic'
+import { V2BoardUserInfo } from '@/components/setting/v2board-user-info'
 import { openWebUrl } from '@/services/cmds'
 import { showNotice } from '@/services/notice-service'
 import { useThemeMode } from '@/services/states'
@@ -67,6 +68,7 @@ const SettingPage = () => {
         </ButtonGroup>
       }
     >
+      <V2BoardUserInfo />
       <Grid container spacing={1.5} columns={{ xs: 6, sm: 6, md: 12 }}>
         <Grid size={6}>
           <Box
