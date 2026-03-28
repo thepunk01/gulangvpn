@@ -1,5 +1,4 @@
-use anyhow::{bail, Result};
-use reqwest::{header::HeaderMap, Client};
+use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 use tauri::State;
@@ -49,7 +48,7 @@ struct LoginReq {
     password: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct UserInfo {
     pub email: String,
     #[serde(rename = "transfer_enable")]
@@ -72,7 +71,7 @@ pub struct UserInfo {
     pub banned: i32,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct SubscribeResp {
     #[serde(rename = "plan_id")]
     pub plan_id: Option<i64>,
@@ -86,13 +85,6 @@ pub struct SubscribeResp {
     pub email: String,
     #[serde(rename = "subscribe_url")]
     pub subscribe_url: String,
-}
-
-fn get_auth_headers(token: &str) -> [(&str, &str); 2] {
-    [
-        ("Authorization", &*format!("Bearer {}", token)),
-        ("Accept", "application/json"),
-    ]
 }
 
 /// V2Board 登录
@@ -117,7 +109,7 @@ pub async fn v2board_login(
     let body: ApiResponse<LoginResp> = resp.json().await.map_err(|e| e.to_string())?;
 
     if !status.is_success() {
-        bail!(body.message.unwrap_or_else(|| "登录失败".into()));
+        return Err(body.message.unwrap_or_else(|| "登录失败".into()));
     }
 
     let data = body.data.ok_or("响应数据为空")?;
@@ -166,7 +158,7 @@ pub async fn v2board_register(
     let body: ApiResponse<LoginResp> = resp.json().await.map_err(|e| e.to_string())?;
 
     if !status.is_success() {
-        bail!(body.message.unwrap_or_else(|| "注册失败".into()));
+        return Err(body.message.unwrap_or_else(|| "注册失败".into()));
     }
 
     let data = body.data.ok_or("响应数据为空")?;
@@ -214,10 +206,10 @@ pub async fn v2board_get_user_info(
     let body: ApiResponse<UserInfo> = resp.json().await.map_err(|e| e.to_string())?;
 
     if !status.is_success() {
-        bail!(body.message.unwrap_or_else(|| "获取用户信息失败".into()));
+        return Err(body.message.unwrap_or_else(|| "获取用户信息失败".into()));
     }
 
-    body.data.ok_or("响应数据为空".into())
+    body.data.ok_or_else(|| "响应数据为空".to_string())
 }
 
 /// 获取订阅信息（含订阅链接）
@@ -242,10 +234,10 @@ pub async fn v2board_get_subscribe_url(
     let body: ApiResponse<SubscribeResp> = resp.json().await.map_err(|e| e.to_string())?;
 
     if !status.is_success() {
-        bail!(body.message.unwrap_or_else(|| "获取订阅信息失败".into()));
+        return Err(body.message.unwrap_or_else(|| "获取订阅信息失败".into()));
     }
 
-    let data = body.data.ok_or("响应数据为空".into())?;
+    let data = body.data.ok_or_else(|| "响应数据为空".to_string())?;
     Ok(data.subscribe_url)
 }
 

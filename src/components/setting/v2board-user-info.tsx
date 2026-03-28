@@ -2,12 +2,12 @@ import { Logout } from '@mui/icons-material'
 import { Box, Button, Card, CircularProgress, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { V2BoardService, type V2BoardUserInfo } from '@/services/v2board'
+import { V2BoardService, type V2BoardUserInfo as V2BoardUserInfoType } from '@/services/v2board'
 import { showNotice } from '@/services/notice-service'
 
 export const V2BoardUserInfo = () => {
   const navigate = useNavigate()
-  const [userInfo, setUserInfo] = useState<V2BoardUserInfo | null>(null)
+  const [userInfo, setUserInfo] = useState<V2BoardUserInfoType | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 

@@ -1,11 +1,11 @@
-mod backup;
-mod clash;
-mod config;
-mod icon;
-mod profile;
-mod proxy;
-mod v2board;
-mod window;
+pub mod backup;
+pub mod clash;
+pub mod config;
+pub mod icon;
+pub mod profile;
+pub mod proxy;
+pub mod v2board;
+pub mod window;
 
 // Re-export all functions from modules
 pub use backup::*;
